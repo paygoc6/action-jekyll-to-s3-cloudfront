@@ -22,16 +22,11 @@ $AWS_REGION
 text
 EOF
 
-echo "Sync to aws s3"
-aws s3 sync ./_site/ \
-            s3://$AWS_S3_BUCKET \
-            --delete \
-            --profile s3-sync-action
+echo "Publishing ._site/ to S3 bucket named $AWS_S3_BUCKET"
+aws s3 sync _site/ "s3://$AWS_S3_BUCKET" --delete --profile s3-sync-action
 
 echo "Invalidate cloudfront"
-aws cloudfront create-invalidation \
-              --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID \
-              --paths '/*'
+aws cloudfront create-invalidation --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
 
 echo "Success Finished"              
 
