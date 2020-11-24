@@ -9,7 +9,7 @@ inputs:
     required: true
   aws-region:
     description: 'aws region'
-    required: false
+    required: true
   aws-s3-bucket:
     description: 'aws s3 bucket to push the generated static site'
     required: true
