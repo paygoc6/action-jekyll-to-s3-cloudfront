@@ -1,0 +1,30 @@
+name: 'Jekyll to s3 and cloudfront'
+description: 'Generate static site with jekyll, push it to aws s3 and invalidate cloudfront'
+inputs:
+  aws-access-key-id:
+    description: 'aws access key id'
+    required: true
+  aws-secret-access-key:
+    description: 'aws secret access key'
+    required: true
+  aws-region:
+    description: 'aws region'
+    required: false
+  aws-s3-bucket:
+    description: 'aws s3 bucket to push the generated static site'
+    required: true
+  aws-cloudfront-distribution-id:
+    description: 'distribution id of the cloudfront API'
+    required: true
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  args:
+    - ${{ inputs.aws_access_key_id }}
+    - ${{ inputs.aws_secret_access_key }}
+    - ${{ inputs.aws_region }}
+    - ${{ inputs.aws_s3_bucket }}
+    - ${{ inputs.aws_cloudfront_distribution_id }}
+branding:
+  icon: 'git-commit'
+  color: 'green'
