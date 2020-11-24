@@ -16,21 +16,21 @@ echo "Completed Jekll build"
 
 echo "Configure aws credentials"
 aws configure --profile s3-sync-action <<-EOF > /dev/null 2>&1
-${AWS_ACCESS_KEY_ID}
-${AWS_SECRET_ACCESS_KEY}
-${AWS_REGION}
+$AWS_ACCESS_KEY_ID
+$AWS_SECRET_ACCESS_KEY
+$AWS_REGION
 text
 EOF
 
 echo "Sync to aws s3"
 aws s3 sync ./_site/ \
-            s3://${AWS_S3_BUCKET} \
+            s3://$AWS_S3_BUCKET \
             --delete \
             --profile s3-sync-action
 
 echo "Invalidate cloudfront"
 aws cloudfront create-invalidation \
-              --distribution-id ${AWS_CLOUDFRONT_DISTRIBUTION_ID} \
+              --distribution-id $AWS_CLOUDFRONT_DISTRIBUTION_ID \
               --paths '/*'
 
 echo "Success Finished"              
