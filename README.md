@@ -17,11 +17,12 @@ This GitHub Action generate static site with jekyll, push it to aws s3 and inval
 
         - name: Jekyll build and deploy
           uses: paygoc6/action-jekyll-to-s3-cloudfront@v1.0.0
+          env: 
+            AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+            AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+            AWS_REGION: ${{ secrets.AWS_REGION}}
           with:
-            aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
-            aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-            aws_region: ${{ secrets.AWS_REGION}}
-            aws_s3_bucket: 'bucket_name'
-            aws_cloudfront_distribution_id: 'distribution_id'
+            AWS_S3_BUCKET: ${{ secrets.AWS_S3_BUCKET}}
+            AWS_CLOUDFRONT_DISTRIBUTION_ID: ${{ secrets.AWS_CLOUDFRONT_DISTRIBUTION_ID }}
 ```
 

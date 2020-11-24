@@ -15,18 +15,18 @@ jekyll build --trace
 echo "Completed Jekll build"
 
 echo "Configure aws credentials"
-aws configure --profile s3-sync-action <<-EOF > /dev/null 2>&1
-$INPUT_AWS_ACCESS_KEY_ID
-$INPUT_AWS_SECRET_ACCESS_KEY
-$INPUT_AWS_REGION
+aws configure --profile jekyll-to-s3-cloudfront <<-EOF > /dev/null 2>&1
+${AWS_ACCESS_KEY_ID}
+${AWS_SECRET_ACCESS_KEY}
+${AWS_REGION}
 text
 EOF
 
 echo "Publishing ._site/ to S3 bucket named $INPUT_AWS_S3_BUCKET"
-aws s3 sync _site/ "s3://$INPUT_AWS_S3_BUCKET" --delete --profile s3-sync-action
+aws s3 sync _site/ "s3://$INPUT_AWS_S3_BUCKET" --delete --profile jekyll-to-s3-cloudfront
 
 echo "Invalidate cloudfront"
-aws cloudfront create-invalidation --distribution-id $INPUT_AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*'
+aws cloudfront create-invalidation --distribution-id $INPUT_AWS_CLOUDFRONT_DISTRIBUTION_ID --paths '/*' --profile jekyll-to-s3-cloudfront
 
 echo "Success Finished"              
 
