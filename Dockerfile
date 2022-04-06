@@ -1,4 +1,4 @@
-FROM jekyll/jekyll:4
+FROM jekyll/jekyll:4.2.0
 
 RUN apk update && \
     apk add python3 && \
