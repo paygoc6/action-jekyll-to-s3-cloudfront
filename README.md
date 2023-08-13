@@ -1,6 +1,10 @@
 # Action jekyll to s3 and cloudfront
 This GitHub Action generate static site with jekyll, push it to aws s3 and invalidate cloudfront
 
+Note that
+
+* `AWS_S3_BUCKET` refers to the **name** of the bucket (not the full ARN)
+* `AWS_CLOUDFRONT_DISTRIBUTION_ID` is just the **ID** of the distribution (not the full ARN)
 
 ## Example Workflow
 ```yaml
